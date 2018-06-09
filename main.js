@@ -16,12 +16,32 @@ function attachHandlers() {
 }
 
 function submitAction() {
-    inputValidation();
+    addSammy();
 }
 
-function inputValidation() {
-    let sammyName = document.getElementById("sammyName").value;
-    console.log(sammyName);
+function addSammy(){
+    let ingredients = [];
+    for(let i = 1; i <= 3; i++){
+        ingredients.push(document.getElementById(`type${i}`).value);
+        ingredients.push(document.getElementById(`type${i}text`).value);
+    }
+    let sammy = {
+        "sammyName": document.getElementById("sammyName").value,
+        "breadType": document.getElementById("breadType").value,
+        "sammyStyle": document.getElementById("sammyStyle").value,
+        "sammyArray": [
+            {[ingredients[0]]: ingredients[1]},
+            {[ingredients[2]]: ingredients[3]},
+            {[ingredients[4]]: ingredients[5]},
+        ]
+    };
+    for(let x = 5; x < ingredients.length - 5; x+=2){
+        let key = ingredients[x];
+        let value= ingredients[x+1];
+        sammy.sammyArray.push({[key] : value});
+        console.log("I ran");
+    };
+    console.log(sammy);
 }
 
 function addItem() {
