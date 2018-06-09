@@ -21,7 +21,8 @@ function submitAction() {
 
 function addSammy(){
     let ingredients = [];
-    for(let i = 1; i <= 3; i++){
+    let totalAdd = itemAdd.value;
+    for(let i = 1; i < totalAdd; i++){
         ingredients.push(document.getElementById(`type${i}`).value);
         ingredients.push(document.getElementById(`type${i}text`).value);
     }
@@ -35,12 +36,14 @@ function addSammy(){
             {[ingredients[4]]: ingredients[5]},
         ]
     };
-    for(let x = 5; x < ingredients.length - 5; x+=2){
-        let key = ingredients[x];
-        let value= ingredients[x+1];
-        sammy.sammyArray.push({[key] : value});
-        console.log("I ran");
-    };
+    if(ingredients.length>6){
+        for(let x = 6; x < ingredients.length; x+=2){
+            let key = ingredients[x];
+            let value= ingredients[x+1];
+            sammy.sammyArray.push({[key] : value});
+            console.log("I ran");
+        };
+    }
     console.log(sammy);
 }
 
@@ -55,6 +58,7 @@ function addItem() {
     //Select Element
     let select = document.createElement('select');
     select.setAttribute('name', `ingredient${currentValue}type`);
+    select.setAttribute('id', `type${currentValue}`);
 
     //Option Element
     let optionSauce = document.createElement('option');
@@ -71,6 +75,7 @@ function addItem() {
     let input = document.createElement('input');
     input.setAttribute('type', 'text');
     input.setAttribute('name', `ingredient${currentValue}`);
+    input.setAttribute('id', `type${currentValue}text`);
     input.classList.add('ingredInput');
 
     //Now append our new items, this is the fun part.
