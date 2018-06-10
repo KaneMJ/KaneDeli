@@ -16,7 +16,44 @@ function attachHandlers() {
 }
 
 function submitAction() {
-    addSammy();
+    // addSammy();
+    inputValidation();
+}
+
+function inputValidation() {
+    let totalAdd = itemAdd.value;
+    let inputObject = {};
+    inputObject.sammyName = document.getElementById("sammyName").value;
+    inputObject.breadType = document.getElementById("breadType").value;
+    inputObject.sammyStyle = document.getElementById("sammyStyle").value;
+    inputObject.sammyArray = [];
+    for(let i = 1; i < totalAdd; i++){
+        inputObject.sammyArray.push(document.getElementById(`type${i}`).value);
+        inputObject.sammyArray.push(document.getElementById(`type${i}text`).value);
+    }
+    // Error object setup
+    let errorObject = {
+        "errors" : false,
+        "sammyName" : true,
+        "breadType" : true,
+        "sammyArray": []
+    };
+    
+    // Check for errors
+    if(inputObject.sammyName === ''){
+        errorObject.errors = true;
+        errorObject.sammyName = false;
+    }
+    if(inputObject.breadType === ''){
+        errorObject.errors = true;
+        errorObject.breadType = false;
+    }
+    for(let i = 1; i < inputObject.sammyArray.length; i+=2){
+        if(inputObject.sammyArray[i] === ''){
+            errorObject.sammyArray.push(i);
+        }
+    }
+    console.log(errorObject);
 }
 
 function addSammy(){
@@ -41,7 +78,6 @@ function addSammy(){
             let key = ingredients[x];
             let value= ingredients[x+1];
             sammy.sammyArray.push({[key] : value});
-            console.log("I ran");
         };
     }
     console.log(sammy);
